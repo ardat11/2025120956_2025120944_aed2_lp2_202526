@@ -1,4 +1,4 @@
-﻿package models;
+package models;
 
 /**
  * Represents a content genre (e.g., Action, Comedy) in the system.
