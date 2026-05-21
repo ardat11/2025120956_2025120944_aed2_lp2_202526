@@ -1,6 +1,12 @@
 package models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.princeton.cs.algs4.SET;
 
 /**
@@ -13,7 +19,7 @@ public class Content extends Entity implements Comparable<Content> {
     private LocalDate releaseDate;
     private int durationMinutes;
 
-    private SET<Artist> cast;
+    private transient SET<Artist> cast; // Made transient to prevent serialization
 
     /**
      * Constructs a new Content entity.
@@ -85,5 +91,32 @@ public class Content extends Entity implements Comparable<Content> {
         }
         return this.id.compareTo(other.getId());
     }
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject();
 
+        // Convert non-serializable algs4.SET to Serializable List
+        List<Artist> tempList = new ArrayList<>();
+        if (this.cast != null) {
+            for (Artist a : this.cast) {
+                tempList.add(a);
+            }
+        }
+        oos.writeObject(tempList);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+
+        // Rebuild algs4.SET from the serialized List
+        List<Artist> tempList = (List<Artist>) ois.readObject();
+        this.cast = new SET<>();
+
+        if (tempList != null) {
+            for (Artist a : tempList) {
+                this.cast.add(a);
+            }
+        }
+    }
 }
+

@@ -1,9 +1,11 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Base abstract class for all domain entities
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
     protected String id;
     protected String name;
