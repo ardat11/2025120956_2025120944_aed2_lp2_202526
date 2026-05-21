@@ -1,4 +1,4 @@
-﻿package database;
+package database;
 
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.princeton.cs.algs4.SET;
