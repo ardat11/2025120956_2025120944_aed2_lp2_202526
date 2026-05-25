@@ -1,4 +1,4 @@
-﻿package services;
+package services;
 
 import database.StreamingDatabase;
 import edu.princeton.cs.algs4.Queue;

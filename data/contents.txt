@@ -1,0 +1,27 @@
+# Contents data file
+# Format: ID;Name;Type;Genre;ReleaseDate(YYYY-MM-DD);Duration;ArtistIDs
+C001;Inception;MOVIE;Action;2010-07-16;148;A001,A003
+C002;The Devil Wears Prada;MOVIE;Comedy;2006-06-30;109;A002
+C003;The Dark Knight;MOVIE;Action;2008-07-18;152;A003
+C004;Blue Jasmine;MOVIE;Drama;2013-07-26;98;A004
+C005;The Mask of Zorro;MOVIE;Action;1998-07-17;136;A005,A006
+C006;Pain and Glory;MOVIE;Drama;2019-03-22;113;A005,A006
+C007;The Last Samurai;MOVIE;Action;2003-12-05;154;A007
+C008;Central Station;MOVIE;Drama;1998-04-03;110;A008
+C009;Skyfall;MOVIE;Thriller;2012-10-26;143;A009,A012
+C010;Queen of the South;SERIES;Thriller;2016-06-23;45;A010
+C011;Midnight in Paris;MOVIE;Romance;2011-05-11;94;A011
+C012;Luther;SERIES;Thriller;2010-05-04;60;A012
+C013;Babel;MOVIE;Drama;2006-10-27;143;A004,A013
+C014;Black Panther;MOVIE;Action;2018-02-16;134;A014
+C015;Parasite;MOVIE;Thriller;2019-05-30;132;A015
+C016;Lost in Translation;MOVIE;Drama;2003-09-12;101;A016
+C017;Dune;MOVIE;Sci-Fi;2021-10-22;155;A017
+C018;Planet Earth;DOCUMENTARY;Documentary;2006-03-05;50;
+C019;Our Planet;DOCUMENTARY;Documentary;2019-04-05;50;
+C020;Stranger Things;SERIES;Sci-Fi;2016-07-15;50;A016
+C021;The Crown;SERIES;Drama;2016-11-04;58;A004
+C022;Breaking Bad;SERIES;Thriller;2008-01-20;47;
+C023;Cosmos;DOCUMENTARY;Documentary;2014-03-09;44;
+C024;The Witcher;SERIES;Fantasy;2019-12-20;60;A003
+C025;Interstellar;MOVIE;Sci-Fi;2014-11-07;169;A001

@@ -1,0 +1,20 @@
+# Users data file
+# Format: ID;Name;Region;RegistrationDate(YYYY-MM-DD)
+U001;Ana Silva;Europe;2021-03-15
+U002;Carlos Mendes;Europe;2021-06-22
+U003;John Smith;North America;2020-01-10
+U004;Emily Davis;North America;2020-08-05
+U005;Sakura Tanaka;Asia;2022-02-14
+U006;Hiroshi Yamamoto;Asia;2022-11-30
+U007;Maria Garcia;South America;2021-09-18
+U008;Pedro Santos;South America;2023-04-01
+U009;Fatima Ndiaye;Africa;2023-07-20
+U010;Omar Hassan;Africa;2020-12-25
+U011;Sophie Laurent;Europe;2022-05-08
+U012;Marco Rossi;Europe;2024-01-17
+U013;Lisa Johnson;North America;2021-11-11
+U014;Raj Patel;Asia;2023-09-03
+U015;Yuki Sato;Asia;2020-06-15
+U016;Lucas Oliveira;South America;2024-03-28
+U017;Isabella Costa;Europe;2022-08-19
+U018;David Kim;Asia;2021-01-30

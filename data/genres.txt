@@ -1,0 +1,12 @@
+# Genres data file
+# Format: ID;Name
+G_ACTION;Action
+G_COMEDY;Comedy
+G_DRAMA;Drama
+G_HORROR;Horror
+G_SCIFI;Sci-Fi
+G_DOCUMENTARY;Documentary
+G_THRILLER;Thriller
+G_ROMANCE;Romance
+G_ANIMATION;Animation
+G_FANTASY;Fantasy

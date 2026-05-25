@@ -1,0 +1,20 @@
+# Artists data file
+# Format: ID;Name;Nationality;Gender;BirthDate(YYYY-MM-DD)
+A001;Leonardo DiCaprio;American;Male;1974-11-11
+A002;Meryl Streep;American;Female;1949-06-22
+A003;Christian Bale;British;Male;1974-01-30
+A004;Cate Blanchett;Australian;Female;1969-05-14
+A005;Antonio Banderas;Spanish;Male;1960-08-10
+A006;Penelope Cruz;Spanish;Female;1974-04-28
+A007;Ken Watanabe;Japanese;Male;1959-10-21
+A008;Fernanda Montenegro;Brazilian;Female;1929-10-16
+A009;Daniel Craig;British;Male;1968-03-02
+A010;Joaquim de Almeida;Portuguese;Male;1957-03-15
+A011;Marion Cotillard;French;Female;1975-09-30
+A012;Idris Elba;British;Male;1972-09-06
+A013;Gael Garcia Bernal;Mexican;Male;1978-11-30
+A014;Lupita Nyongo;Kenyan;Female;1983-03-01
+A015;Song Kang-ho;South Korean;Male;1967-01-17
+A016;Scarlett Johansson;American;Female;1984-11-22
+A017;Oscar Isaac;Guatemalan;Male;1979-03-09
+A018;Deepika Padukone;Indian;Female;1986-01-05
