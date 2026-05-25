@@ -19,28 +19,45 @@ public class Artist extends Entity implements Comparable<Artist> {
      * @param gender      the gender of the artist
      * @param birthDate   the birth date of the artist
      */
-    public Artist(String id, String name, String nationality, String gender, LocalDate birthDate)
-    {
+    public Artist(String id, String name, String nationality, String gender, LocalDate birthDate) {
         super(id, name);
         this.nationality = nationality;
         this.gender = gender;
         this.birthDate = birthDate;
     }
 
-    // Getters
-    public String getNationality() { return nationality; }
-    public String getGender() { return gender; }
-    public LocalDate getBirthDate() { return birthDate; }
+    // Getters-Setters
+    public String getNationality() {
+        return nationality;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     @Override
     public int compareTo(Artist other) {
         // Pushes the null objects to the end to prevent Null Pointer Exception
-        if (other == null || other.getId() == null)
-        {
+        if (other == null || other.getId() == null) {
             return 1;
         }
-        if (this.id == null)
-        {
+        if (this.id == null) {
             return -1;
         }
         return this.id.compareTo(other.getId());

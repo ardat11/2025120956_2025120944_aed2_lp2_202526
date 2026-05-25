@@ -21,11 +21,17 @@ public abstract class Entity implements Serializable {
         this.name = name;
     }
 
-    //Getters
-    public String getId()   { return id; }
+    // Getters-Setters
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

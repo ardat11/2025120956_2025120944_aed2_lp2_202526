@@ -23,17 +23,25 @@ public class User extends Entity implements Comparable<User> {
         this.registrationDate = registrationDate;
     }
 
-    // Getters
+    // Getters-Setters
     public String getRegion() {
         return region;
     }
+
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     @Override
-    public int compareTo(User other)
-    {
+    public int compareTo(User other) {
         if (other == null || other.getId() == null) {
             return 1;
             // Pushes the null objects to the end to prevent Null Pointer Exception

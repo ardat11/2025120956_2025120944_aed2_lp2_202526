@@ -130,9 +130,9 @@ public class StreamingDatabase {
 
     /**
      * Links an existing Artist to an existing Content.
-     *
-     * @param contentId the ID of the content
-     * @param artistId  the ID of the artist
+     * 
+     * @param contentId The ID of the content
+     * @param artistId  The ID of the artist
      */
     public void addArtistToContent(String contentId, String artistId) {
         Content content = getContent(contentId);
@@ -144,9 +144,11 @@ public class StreamingDatabase {
     }
 
     /**
-     * Returns the contents associated with the specified genre ID,
-     * @param genreId
-     * @return
+     * Returns the contents associated with the specified genre ID.
+     * 
+     * @param genreId The ID of the genre to retrieve contents for
+     * @return An iterable collection of contents associated with the specified
+     *         genre ID.
      */
     public Iterable<Content> getContentsByGenreId(String genreId) {
         if (genreId != null && contentsByGenre.contains(genreId)) {
@@ -155,8 +157,167 @@ public class StreamingDatabase {
         return new SET<Content>();
     }
 
-    public Iterable<String> getAllUserIds() { return users.keys(); }
-    public Iterable<String> getAllContentIds() { return contents.keys(); }
-    public Iterable<String> getAllArtistIds() { return artists.keys(); }
-    public Iterable<String> getAllGenreIds() { return genres.keys(); }
+    /**
+     * Edits a user's information.
+     * 
+     * @param id               The ID of the user to edit
+     * @param name             The new name of the user
+     * @param region           The new region of the user
+     * @param registrationDate The new registration date of the user
+     */
+    public void editUser(String id, String name, String region, java.time.LocalDate registrationDate) {
+        User user = getUser(id);
+        if (user != null) {
+            if (name != null)
+                user.setName(name);
+            if (region != null)
+                user.setRegion(region);
+            if (registrationDate != null)
+                user.setRegistrationDate(registrationDate);
+        }
+    }
+
+    /**
+     * Edits an artist's information.
+     * 
+     * @param id          The ID of the artist to edit
+     * @param name        The new name of the artist
+     * @param nationality The new nationality of the artist
+     * @param gender      The new gender of the artist
+     * @param birthDate   The new birth date of the artist
+     */
+    public void editArtist(String id, String name, String nationality, String gender, java.time.LocalDate birthDate) {
+        Artist artist = getArtist(id);
+        if (artist != null) {
+            if (name != null)
+                artist.setName(name);
+            if (nationality != null)
+                artist.setNationality(nationality);
+            if (gender != null)
+                artist.setGender(gender);
+            if (birthDate != null)
+                artist.setBirthDate(birthDate);
+        }
+    }
+
+    /**
+     * Edits a genre's information.
+     * 
+     * @param id   The ID of the genre to edit
+     * @param name The new name of the genre
+     */
+    public void editGenre(String id, String name) {
+        Genre genre = getGenre(id);
+        if (genre != null) {
+            if (name != null)
+                genre.setName(name);
+        }
+    }
+
+    /**
+     * Edits a content's information.
+     * 
+     * @param id              The ID of the content to edit
+     * @param name            The new name of the content
+     * @param type            The new type of the content
+     * @param genre           The new genre of the content
+     * @param releaseDate     The new release date of the content
+     * @param durationMinutes The new duration of the content in minutes
+     */
+    public void editContent(String id, String name, models.ContentType type, Genre genre,
+            java.time.LocalDate releaseDate, int durationMinutes) {
+        Content content = getContent(id);
+        if (content != null) {
+            if (name != null)
+                content.setName(name);
+            if (type != null)
+                content.setType(type);
+
+            Genre oldGenre = content.getGenre();
+            if (genre != oldGenre) {
+                // Remove from old genre secondary index
+                if (oldGenre != null && oldGenre.getId() != null) {
+                    String oldGenreId = oldGenre.getId();
+                    if (contentsByGenre.contains(oldGenreId)) {
+                        contentsByGenre.get(oldGenreId).delete(content);
+                    }
+                }
+                // Set the new genre
+                content.setGenre(genre);
+                // Add to new genre secondary index
+                if (genre != null && genre.getId() != null) {
+                    String newGenreId = genre.getId();
+                    if (!contentsByGenre.contains(newGenreId)) {
+                        contentsByGenre.put(newGenreId, new SET<Content>());
+                    }
+                    contentsByGenre.get(newGenreId).add(content);
+                }
+            }
+
+            if (releaseDate != null)
+                content.setReleaseDate(releaseDate);
+            if (durationMinutes > 0)
+                content.setDurationMinutes(durationMinutes);
+        }
+    }
+
+    public Iterable<User> listAllUsers() {
+        edu.princeton.cs.algs4.Queue<User> queue = new edu.princeton.cs.algs4.Queue<>();
+        for (String id : users.keys()) {
+            User u = users.get(id);
+            if (u != null) {
+                queue.enqueue(u);
+            }
+        }
+        return queue;
+    }
+
+    public Iterable<Artist> listAllArtists() {
+        edu.princeton.cs.algs4.Queue<Artist> queue = new edu.princeton.cs.algs4.Queue<>();
+        for (String id : artists.keys()) {
+            Artist a = artists.get(id);
+            if (a != null) {
+                queue.enqueue(a);
+            }
+        }
+        return queue;
+    }
+
+    public Iterable<Genre> listAllGenres() {
+        edu.princeton.cs.algs4.Queue<Genre> queue = new edu.princeton.cs.algs4.Queue<>();
+        for (String id : genres.keys()) {
+            Genre g = genres.get(id);
+            if (g != null) {
+                queue.enqueue(g);
+            }
+        }
+        return queue;
+    }
+
+    public Iterable<Content> listAllContents() {
+        edu.princeton.cs.algs4.Queue<Content> queue = new edu.princeton.cs.algs4.Queue<>();
+        for (String id : contents.keys()) {
+            Content c = contents.get(id);
+            if (c != null) {
+                queue.enqueue(c);
+            }
+        }
+        return queue;
+    }
+
+    public Iterable<String> getAllUserIds() {
+        return users.keys();
+    }
+
+    public Iterable<String> getAllContentIds() {
+        return contents.keys();
+    }
+
+    public Iterable<String> getAllArtistIds() {
+        return artists.keys();
+    }
+
+    public Iterable<String> getAllGenreIds() {
+        return genres.keys();
+    }
 }
