@@ -1,0 +1,8 @@
+# ARCHIVED ENTITIES
+#--- USERS ---
+U001;Alice Smith;Europe;2025-01-10
+#--- ARTISTS ---
+A002;Meryl Streep;American;Female;1949-06-22
+#--- GENRES ---
+G_ACTION;ACTION
+#--- CONTENTS ---

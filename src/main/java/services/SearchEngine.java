@@ -613,4 +613,89 @@ public class SearchEngine {
         String endDate = endYear + "-12-31";
         return findContentsByReleaseDateRange(startDate, endDate);
     }
+
+    /**
+     * Removes a user from all search indexes.
+     * @param user the user to remove
+     */
+    public void removeUser(User user) {
+        if (user == null || user.getRegistrationDate() == null) return;
+        String dateKey = user.getRegistrationDate().toString();
+        if (usersByDate.contains(dateKey)) {
+            SET<User> set = usersByDate.get(dateKey);
+            set.delete(user);
+            if (set.isEmpty()) {
+                usersByDate.delete(dateKey);
+            }
+        }
+    }
+
+    /**
+     * Removes an artist from all search indexes.
+     * @param artist the artist to remove
+     */
+    public void removeArtist(Artist artist) {
+        if (artist == null) return;
+        if (artist.getBirthDate() != null) {
+            String dateKey = artist.getBirthDate().toString();
+            if (artistsByBirthDate.contains(dateKey)) {
+                SET<Artist> set = artistsByBirthDate.get(dateKey);
+                set.delete(artist);
+                if (set.isEmpty()) {
+                    artistsByBirthDate.delete(dateKey);
+                }
+            }
+        }
+        if (artist.getNationality() != null) {
+            String natKey = artist.getNationality().toUpperCase();
+            if (artistsByNationality.contains(natKey)) {
+                SET<Artist> set = artistsByNationality.get(natKey);
+                set.delete(artist);
+                if (set.isEmpty()) {
+                    artistsByNationality.delete(natKey);
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes a content item from all search indexes.
+     * @param content the content to remove
+     */
+    public void removeContent(Content content) {
+        if (content == null) return;
+        if (content.getName() != null) {
+            String nameKey = content.getName().toUpperCase();
+            if (contentsByName.contains(nameKey)) {
+                SET<Content> set = contentsByName.get(nameKey);
+                set.delete(content);
+                if (set.isEmpty()) {
+                    contentsByName.delete(nameKey);
+                }
+            }
+        }
+        if (content.getReleaseDate() != null) {
+            String dateKey = content.getReleaseDate().toString();
+            if (contentsByReleaseDate.contains(dateKey)) {
+                SET<Content> set = contentsByReleaseDate.get(dateKey);
+                set.delete(content);
+                if (set.isEmpty()) {
+                    contentsByReleaseDate.delete(dateKey);
+                }
+            }
+        }
+    }
+
+    /**
+     * Fully rebuilds all indexes from the current database state.
+     * @param db the current database instance
+     */
+    public void rebuildIndexes(StreamingDatabase db) {
+        this.usersByDate = new RedBlackBST<>();
+        this.artistsByBirthDate = new RedBlackBST<>();
+        this.artistsByNationality = new SeparateChainingHashST<>();
+        this.contentsByName = new RedBlackBST<>();
+        this.contentsByReleaseDate = new RedBlackBST<>();
+        buildIndexes(db);
+    }
 }

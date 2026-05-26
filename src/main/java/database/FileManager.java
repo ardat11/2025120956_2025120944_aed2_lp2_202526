@@ -14,7 +14,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FileManager {
     /**
      * Loads users from into the database.
@@ -32,7 +31,8 @@ public class FileManager {
 
         while (!in.isEmpty()) {
             String line = in.readLine().replace("\uFEFF", "").trim();
-            if (line.isEmpty() || line.startsWith("#")) continue;
+            if (line.isEmpty() || line.startsWith("#"))
+                continue;
 
             String[] parts = line.split(";");
             if (parts.length == 4) {
@@ -55,7 +55,8 @@ public class FileManager {
 
     /**
      * Loads media content,linking artists and generating genres.
-     * Expected format: ID;Name;Type;Genre;ReleaseDate(YYYY-MM-DD);Duration;ArtistIDs
+     * Expected format:
+     * ID;Name;Type;Genre;ReleaseDate(YYYY-MM-DD);Duration;ArtistIDs
      *
      * @param filepath path to the content data file
      * @param db       the active database instance to populate
@@ -69,7 +70,8 @@ public class FileManager {
 
         while (!in.isEmpty()) {
             String line = in.readLine().replace("\uFEFF", "").trim();
-            if (line.isEmpty() || line.startsWith("#")) continue;
+            if (line.isEmpty() || line.startsWith("#"))
+                continue;
 
             String[] parts = line.split(";");
             if (parts.length >= 6) {
@@ -125,7 +127,8 @@ public class FileManager {
 
         while (!in.isEmpty()) {
             String line = in.readLine().replace("\uFEFF", "").trim();
-            if (line.isEmpty() || line.startsWith("#")) continue;
+            if (line.isEmpty() || line.startsWith("#"))
+                continue;
 
             String[] parts = line.split(";");
             if (parts.length == 2) {
@@ -156,7 +159,8 @@ public class FileManager {
 
         while (!in.isEmpty()) {
             String line = in.readLine().replace("\uFEFF", "").trim();
-            if (line.isEmpty() || line.startsWith("#")) continue;
+            if (line.isEmpty() || line.startsWith("#"))
+                continue;
 
             String[] parts = line.split(";");
             if (parts.length == 5) {
@@ -179,7 +183,7 @@ public class FileManager {
     }
 
     /**
-     * Captures a  runtime state snapshot by compiling entity collections
+     * Captures a runtime state snapshot by compiling entity collections
      * and writing them into a single serialized binary object stream.
      *
      * @param db       source database engine containing data states
@@ -188,16 +192,20 @@ public class FileManager {
     public static void saveSystem(StreamingDatabase db, String filepath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
             List<User> userList = new ArrayList<>();
-            for (String id : db.getAllUserIds()) userList.add(db.getUser(id));
+            for (String id : db.getAllUserIds())
+                userList.add(db.getUser(id));
 
             List<Genre> genreList = new ArrayList<>();
-            for (String id : db.getAllGenreIds()) genreList.add(db.getGenre(id));
+            for (String id : db.getAllGenreIds())
+                genreList.add(db.getGenre(id));
 
             List<Artist> artistList = new ArrayList<>();
-            for (String id : db.getAllArtistIds()) artistList.add(db.getArtist(id));
+            for (String id : db.getAllArtistIds())
+                artistList.add(db.getArtist(id));
 
             List<Content> contentList = new ArrayList<>();
-            for (String id : db.getAllContentIds()) contentList.add(db.getContent(id));
+            for (String id : db.getAllContentIds())
+                contentList.add(db.getContent(id));
 
             oos.writeObject(userList);
             oos.writeObject(genreList);
@@ -211,7 +219,8 @@ public class FileManager {
     }
 
     /**
-     * Restores application states from a binary file, resolving and re-linking object
+     * Restores application states from a binary file, resolving and re-linking
+     * object
      * reference paths to secure data topology across internal collections.
      *
      * @param db       target database instance where tables will be restored
@@ -231,9 +240,12 @@ public class FileManager {
             List<Artist> artistList = (List<Artist>) ois.readObject();
             List<Content> contentList = (List<Content>) ois.readObject();
 
-            for (User u : userList) db.insertUser(u);
-            for (Artist a : artistList) db.insertArtist(a);
-            for (Genre g : genreList) db.insertGenre(g);
+            for (User u : userList)
+                db.insertUser(u);
+            for (Artist a : artistList)
+                db.insertArtist(a);
+            for (Genre g : genreList)
+                db.insertGenre(g);
 
             for (Content c : contentList) {
                 if (c.getGenre() != null) {
@@ -243,13 +255,16 @@ public class FileManager {
 
                 if (c.getCast() != null) {
                     edu.princeton.cs.algs4.Queue<Artist> tempQueue = new edu.princeton.cs.algs4.Queue<>();
-                    for (Artist fakeArtist : c.getCast()) tempQueue.enqueue(fakeArtist);
+                    for (Artist fakeArtist : c.getCast())
+                        tempQueue.enqueue(fakeArtist);
 
-                    while (!c.getCast().isEmpty()) c.getCast().delete(c.getCast().max());
+                    while (!c.getCast().isEmpty())
+                        c.getCast().delete(c.getCast().max());
 
                     for (Artist fakeArtist : tempQueue) {
                         Artist originalArtist = db.getArtist(fakeArtist.getId());
-                        if (originalArtist != null) c.addArtist(originalArtist);
+                        if (originalArtist != null)
+                            c.addArtist(originalArtist);
                     }
                 }
                 db.insertContent(c);
@@ -257,6 +272,55 @@ public class FileManager {
             System.out.println("System successfully loaded from: " + filepath);
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error loading system: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves all archived (deleted) entities to a text file.
+     *
+     * @param archive  the archive instance containing deleted entities
+     * @param filepath path to the destination text file
+     */
+    public static void saveArchive(Archive archive, String filepath) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filepath))) {
+            writer.println("# ARCHIVED ENTITIES");
+
+            writer.println("#--- USERS ---");
+            for (User u : archive.getDeletedUsers()) {
+                writer.println(u.getId() + ";" + u.getName() + ";" + u.getRegion() + ";" + u.getRegistrationDate());
+            }
+
+            writer.println("#--- ARTISTS ---");
+            for (Artist a : archive.getDeletedArtists()) {
+                writer.println(a.getId() + ";" + a.getName() + ";" + a.getNationality() + ";" + a.getGender() + ";"
+                        + a.getBirthDate());
+            }
+
+            writer.println("#--- GENRES ---");
+            for (Genre g : archive.getDeletedGenres()) {
+                writer.println(g.getId() + ";" + g.getName());
+            }
+
+            writer.println("#--- CONTENTS ---");
+            for (Content c : archive.getDeletedContents()) {
+                StringBuilder artistsSb = new StringBuilder();
+                if (c.getCast() != null) {
+                    boolean first = true;
+                    for (Artist a : c.getCast()) {
+                        if (!first)
+                            artistsSb.append(",");
+                        artistsSb.append(a.getId());
+                        first = false;
+                    }
+                }
+                String genreName = c.getGenre() != null ? c.getGenre().getName() : "";
+                writer.println(c.getId() + ";" + c.getName() + ";" + c.getType() + ";" + genreName + ";"
+                        + c.getReleaseDate() + ";" + c.getDurationMinutes() + ";" + artistsSb.toString());
+            }
+
+            System.out.println("Archive successfully saved to text file: " + filepath);
+        } catch (IOException e) {
+            System.out.println("Error saving archive: " + e.getMessage());
         }
     }
 }

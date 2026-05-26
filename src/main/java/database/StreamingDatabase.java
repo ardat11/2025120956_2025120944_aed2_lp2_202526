@@ -26,16 +26,32 @@ public class StreamingDatabase {
         this.contentsByGenre = new SeparateChainingHashST<>();
     }
 
+    /**
+     * Inserts a genre into the database.
+     * 
+     * @param genre The genre to insert
+     */
     public void insertGenre(Genre genre) {
         if (genre != null && genre.getId() != null) {
             genres.put(genre.getId(), genre);
         }
     }
 
+    /**
+     * Gets a genre from the database.
+     * 
+     * @param id The ID of the genre to get
+     * @return The genre with the specified ID
+     */
     public Genre getGenre(String id) {
         return genres.get(id);
     }
 
+    /**
+     * Removes a genre from the database.
+     * 
+     * @param id The ID of the genre to remove
+     */
     public void removeGenre(String id) {
         if (genres.contains(id)) {
             if (contentsByGenre.contains(id)) {
@@ -48,16 +64,32 @@ public class StreamingDatabase {
         }
     }
 
+    /**
+     * Inserts a user into the database.
+     * 
+     * @param user The user to insert
+     */
     public void insertUser(User user) {
         if (user != null && user.getId() != null) {
             users.put(user.getId(), user);
         }
     }
 
+    /**
+     * Gets a user from the database.
+     * 
+     * @param id The ID of the user to get
+     * @return The user with the specified ID
+     */
     public User getUser(String id) {
         return users.get(id);
     }
 
+    /**
+     * Removes a user from the database.
+     * 
+     * @param id The ID of the user to remove
+     */
     public void removeUser(String id) {
         if (users.contains(id)) {
             User userToDelete = users.get(id);
@@ -66,6 +98,11 @@ public class StreamingDatabase {
         }
     }
 
+    /**
+     * Inserts a content into the database.
+     * 
+     * @param content The content to insert
+     */
     public void insertContent(Content content) {
         if (content != null && content.getId() != null) {
             contents.put(content.getId(), content);
@@ -82,10 +119,21 @@ public class StreamingDatabase {
         }
     }
 
+    /**
+     * Gets a content from the database.
+     * 
+     * @param id The ID of the content to get
+     * @return The content with the specified ID
+     */
     public Content getContent(String id) {
         return contents.get(id);
     }
 
+    /**
+     * Removes a content from the database.
+     * 
+     * @param id The ID of the content to remove
+     */
     public void removeContent(String id) {
         if (contents.contains(id)) {
 
@@ -102,16 +150,32 @@ public class StreamingDatabase {
         }
     }
 
+    /**
+     * Inserts an artist into the database.
+     * 
+     * @param artist The artist to insert
+     */
     public void insertArtist(Artist artist) {
         if (artist != null && artist.getId() != null) {
             artists.put(artist.getId(), artist);
         }
     }
 
+    /**
+     * Gets an artist from the database.
+     * 
+     * @param id The ID of the artist to get
+     * @return The artist with the specified ID
+     */
     public Artist getArtist(String id) {
         return artists.get(id);
     }
 
+    /**
+     * Removes an artist from the database.
+     * 
+     * @param id The ID of the artist to remove
+     */
     public void removeArtist(String id) {
         if (artists.contains(id)) {
             Artist artistToDelete = artists.get(id);
@@ -261,6 +325,11 @@ public class StreamingDatabase {
         }
     }
 
+    /**
+     * Lists all users in the database.
+     * 
+     * @return An iterable collection of all users.
+     */
     public Iterable<User> listAllUsers() {
         edu.princeton.cs.algs4.Queue<User> queue = new edu.princeton.cs.algs4.Queue<>();
         for (String id : users.keys()) {
@@ -272,6 +341,11 @@ public class StreamingDatabase {
         return queue;
     }
 
+    /**
+     * Lists all artists in the database.
+     * 
+     * @return An iterable collection of all artists.
+     */
     public Iterable<Artist> listAllArtists() {
         edu.princeton.cs.algs4.Queue<Artist> queue = new edu.princeton.cs.algs4.Queue<>();
         for (String id : artists.keys()) {
@@ -283,6 +357,11 @@ public class StreamingDatabase {
         return queue;
     }
 
+    /**
+     * Lists all genres in the database.
+     * 
+     * @return An iterable collection of all genres.
+     */
     public Iterable<Genre> listAllGenres() {
         edu.princeton.cs.algs4.Queue<Genre> queue = new edu.princeton.cs.algs4.Queue<>();
         for (String id : genres.keys()) {
@@ -294,6 +373,11 @@ public class StreamingDatabase {
         return queue;
     }
 
+    /**
+     * Lists all contents in the database.
+     * 
+     * @return An iterable collection of all contents.
+     */
     public Iterable<Content> listAllContents() {
         edu.princeton.cs.algs4.Queue<Content> queue = new edu.princeton.cs.algs4.Queue<>();
         for (String id : contents.keys()) {
@@ -305,18 +389,38 @@ public class StreamingDatabase {
         return queue;
     }
 
+    /**
+     * Gets all user IDs in the database.
+     * 
+     * @return An iterable collection of all user IDs.
+     */
     public Iterable<String> getAllUserIds() {
         return users.keys();
     }
 
+    /**
+     * Gets all content IDs in the database.
+     * 
+     * @return An iterable collection of all content IDs.
+     */
     public Iterable<String> getAllContentIds() {
         return contents.keys();
     }
 
+    /**
+     * Gets all artist IDs in the database.
+     * 
+     * @return An iterable collection of all artist IDs.
+     */
     public Iterable<String> getAllArtistIds() {
         return artists.keys();
     }
 
+    /**
+     * Gets all genre IDs in the database.
+     * 
+     * @return An iterable collection of all genre IDs.
+     */
     public Iterable<String> getAllGenreIds() {
         return genres.keys();
     }
