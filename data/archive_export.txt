@@ -1,0 +1,7 @@
+# ARCHIVED ENTITIES
+#--- USERS ---
+U1;Jack;North America;2025-02-14
+#--- ARTISTS ---
+A1;Keira Knightley;British;Female;1985-03-26
+#--- GENRES ---
+#--- CONTENTS ---
