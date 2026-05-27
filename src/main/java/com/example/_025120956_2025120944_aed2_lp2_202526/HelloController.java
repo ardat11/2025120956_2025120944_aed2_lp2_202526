@@ -2,6 +2,7 @@ package com.example._025120956_2025120944_aed2_lp2_202526;
 
 import database.StreamingDatabase;
 import database.Archive;
+import database.FileManager;
 import services.SearchEngine;
 import models.*;
 
@@ -88,6 +89,7 @@ public class HelloController {
     @FXML private TextField txtSearchContentMaxDur;
     
     @FXML private TextArea txtSearchResults;
+    @FXML private TextArea txtAnalyticsResults;
 
     // Run automatically when the UI starts
     @FXML
@@ -470,6 +472,73 @@ public class HelloController {
             txtSearchResults.setText(res);
         } catch (Exception e) {
             txtSearchResults.setText("Error: " + e.getMessage());
+        }
+    }
+
+    // --- Import / Export Handlers ---
+    @FXML
+    public void onImportTextClick() {
+        try {
+            FileManager.loadUsers("data/users_export.txt", db);
+            FileManager.loadArtists("data/artists_export.txt", db);
+            FileManager.loadGenres("data/genres_export.txt", db);
+            FileManager.loadContents("data/contents_export.txt", db);
+
+            showUsers();
+            showArtists();
+            showContents();
+            showGenres();
+
+            txtAnalyticsResults.setText("System: CSV Text Data successfully imported from 'data/' directory.");
+        } catch (Exception e) {
+            txtAnalyticsResults.setText("Error: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void onExportTextClick() {
+        try {
+            java.io.File dataDir = new java.io.File("data");
+            if (!dataDir.exists()) {
+                dataDir.mkdir();
+            }
+            FileManager.saveUsers(db, "data/users_export.txt");
+            FileManager.saveArtists(db, "data/artists_export.txt");
+            FileManager.saveGenres(db, "data/genres_export.txt");
+            FileManager.saveContents(db, "data/contents_export.txt");
+            FileManager.saveArchive(archive, "data/archive_export.txt");
+            txtAnalyticsResults.setText("System: All database tables successfully backed up as flat semicolon-separated files under 'data/' directory.");
+        } catch (Exception e) {
+            txtAnalyticsResults.setText("Error: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void onSaveBinaryClick() {
+        try {
+            FileManager.saveSystem(db, "data/system_backup.bin");
+            txtAnalyticsResults.setText("System: Complete database snapshot successfully captured and serialized to: 'data/system_backup.bin'\n" + "Users, artists, contents, and genres are fully preserved!");
+        } catch (Exception e) {
+            txtAnalyticsResults.setText("Error saving state: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void onLoadBinaryClick() {
+        try {
+            StreamingDatabase restored = new StreamingDatabase();
+            FileManager.loadSystem(restored, "data/system_backup.bin");
+            db = restored;
+            searchEngine = new SearchEngine(db);
+
+            showUsers();
+            showArtists();
+            showContents();
+            showGenres();
+
+            txtAnalyticsResults.setText("System: Complete database snapshot successfully loaded and reconstructed from: 'data/system_backup.bin'\n" + "All records and binary tables are fully restored and online.");
+        } catch (Exception e) {
+            txtAnalyticsResults.setText("Error loading state: " + e.getMessage());
         }
     }
 }

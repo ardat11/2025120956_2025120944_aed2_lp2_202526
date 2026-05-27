@@ -1,0 +1,2 @@
+# FromID;ToID;RelationType;Weight;Timestamp(YYYY-MM-DD);FullyWatched;Details
+U1;C1;WATCHES;120.0;2025-02-14;true;WATCHED_FULLY

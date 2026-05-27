@@ -215,5 +215,27 @@
         </AnchorPane>
       </content>
     </Tab>
+    
+    <!-- Tab 6: System Admin Operations -->
+    <Tab text="System Admin">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+          <children>
+            <!-- Left Side: System Control Buttons -->
+            <Label layoutX="15.0" layoutY="15.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="--- FLAT FILE BACKUPS (CSV) ---" />
+            <Button layoutX="15.0" layoutY="45.0" mnemonicParsing="false" onAction="#onImportTextClick" prefHeight="35.0" prefWidth="215.0" style="-fx-font-size: 12px;" text="Import CSV Text Data" />
+            <Button layoutX="15.0" layoutY="95.0" mnemonicParsing="false" onAction="#onExportTextClick" prefHeight="35.0" prefWidth="215.0" style="-fx-font-size: 12px;" text="Export CSV Text Backup" />
+
+            <Label layoutX="15.0" layoutY="160.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="--- BINARY SNAPSHOTS ---" />
+            <Button layoutX="15.0" layoutY="190.0" mnemonicParsing="false" onAction="#onSaveBinaryClick" prefHeight="35.0" prefWidth="215.0" style="-fx-font-size: 12px;" text="Backup System State (.bin)" />
+            <Button layoutX="15.0" layoutY="240.0" mnemonicParsing="false" onAction="#onLoadBinaryClick" prefHeight="35.0" prefWidth="215.0" style="-fx-font-size: 12px;" text="Restore System State (.bin)" />
+
+            <!-- Right Side: System Log Area -->
+            <Label layoutX="260.0" layoutY="15.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="System Administrator Logs Console:" />
+            <TextArea fx:id="txtAnalyticsResults" editable="false" layoutX="260.0" layoutY="45.0" prefHeight="500.0" prefWidth="525.0" promptText="Logs will be outputted here..." style="-fx-font-family: 'Consolas'; -fx-font-size: 11px;" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </content>
+    </Tab>
   </tabs>
 </TabPane>
