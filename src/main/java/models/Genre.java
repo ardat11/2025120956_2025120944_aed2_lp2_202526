@@ -28,4 +28,9 @@ public class Genre extends Entity implements Comparable<Genre> {
         }
         return this.id.compareTo(other.getId());
     }
+
+    @Override
+    public String toString() {
+        return this.getName() != null ? this.getName() : "";
+    }
 }
