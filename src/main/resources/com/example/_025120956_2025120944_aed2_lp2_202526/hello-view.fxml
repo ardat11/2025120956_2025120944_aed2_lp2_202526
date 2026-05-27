@@ -1,16 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example._025120956_2025120944_aed2_lp2_202526.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._025120956_2025120944_aed2_lp2_202526.HelloController">
+  <tabs>
+    <!-- Tab 1: Users CRUD -->
+    <Tab text="Users">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="20.0" text="User ID:" />
+                  <TextField fx:id="txtUserId" layoutX="70.0" layoutY="16.0" prefHeight="25.0" prefWidth="100.0" />
+                  
+                  <Label layoutX="190.0" layoutY="20.0" text="Name:" />
+                  <TextField fx:id="txtUserName" layoutX="235.0" layoutY="16.0" prefHeight="25.0" prefWidth="120.0" />
+                  
+                  <Label layoutX="375.0" layoutY="20.0" text="Region:" />
+                  <TextField fx:id="txtUserRegion" layoutX="425.0" layoutY="16.0" prefHeight="25.0" prefWidth="120.0" />
+                  
+                  <Label layoutX="15.0" layoutY="60.0" text="Reg Date:" />
+                  <TextField fx:id="txtUserDate" layoutX="80.0" layoutY="56.0" prefHeight="25.0" prefWidth="110.0" promptText="YYYY-MM-DD" />
+                  
+                  <Button fx:id="btnAddUser" layoutX="565.0" layoutY="16.0" mnemonicParsing="false" onAction="#onAddUserClick" prefWidth="65.0" text="Add" />
+                  <Button fx:id="btnEditUser" layoutX="640.0" layoutY="16.0" mnemonicParsing="false" onAction="#onEditUserClick" prefWidth="65.0" text="Edit" />
+                  <Button fx:id="btnDeleteUser" layoutX="715.0" layoutY="16.0" mnemonicParsing="false" onAction="#onDeleteUserClick" prefWidth="70.0" text="Delete" />
+                  
+                  <TableView fx:id="tblUsers" layoutX="15.0" layoutY="110.0" prefHeight="440.0" prefWidth="770.0">
+                    <columns>
+                      <TableColumn fx:id="colUserId" prefWidth="90.0" text="ID" />
+                      <TableColumn fx:id="colUserName" prefWidth="220.0" text="Name" />
+                        <TableColumn fx:id="colUserRegion" prefWidth="240.0" text="Region" />
+                        <TableColumn fx:id="colUserDate" prefWidth="200.0" text="Reg Date" />
+                    </columns>
+                  </TableView>
+               </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+    
+    <!-- Tab 2: Artists CRUD -->
+    <Tab text="Artists">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="20.0" text="Artist ID:" />
+                  <TextField fx:id="txtArtistId" layoutX="75.0" layoutY="16.0" prefHeight="25.0" prefWidth="90.0" />
+                  
+                  <Label layoutX="185.0" layoutY="20.0" text="Name:" />
+                  <TextField fx:id="txtArtistName" layoutX="230.0" layoutY="16.0" prefHeight="25.0" prefWidth="110.0" />
+                  
+                  <Label layoutX="360.0" layoutY="20.0" text="Nation:" />
+                  <TextField fx:id="txtArtistNat" layoutX="410.0" layoutY="16.0" prefHeight="25.0" prefWidth="110.0" />
+                  
+                  <Label layoutX="15.0" layoutY="60.0" text="Gender:" />
+                  <TextField fx:id="txtArtistGender" layoutX="70.0" layoutY="56.0" prefHeight="25.0" prefWidth="90.0" />
+                  
+                  <Label layoutX="180.0" layoutY="60.0" text="Birth Date:" />
+                  <TextField fx:id="txtArtistBirth" layoutX="250.0" layoutY="56.0" prefHeight="25.0" prefWidth="100.0" promptText="YYYY-MM-DD" />
+                  
+                  <Button fx:id="btnAddArtist" layoutX="565.0" layoutY="16.0" mnemonicParsing="false" onAction="#onAddArtistClick" prefWidth="65.0" text="Add" />
+                  <Button fx:id="btnEditArtist" layoutX="640.0" layoutY="16.0" mnemonicParsing="false" onAction="#onEditArtistClick" prefWidth="65.0" text="Edit" />
+                  <Button fx:id="btnDeleteArtist" layoutX="715.0" layoutY="16.0" mnemonicParsing="false" onAction="#onDeleteArtistClick" prefWidth="70.0" text="Delete" />
+                  
+                  <TableView fx:id="tblArtists" layoutX="15.0" layoutY="110.0" prefHeight="440.0" prefWidth="770.0">
+                    <columns>
+                      <TableColumn fx:id="colArtistId" prefWidth="90.0" text="ID" />
+                      <TableColumn fx:id="colArtistName" prefWidth="200.0" text="Name" />
+                        <TableColumn fx:id="colArtistNat" prefWidth="180.0" text="Nationality" />
+                        <TableColumn fx:id="colArtistGender" prefWidth="140.0" text="Gender" />
+                        <TableColumn fx:id="colArtistBirth" prefWidth="140.0" text="Birth Date" />
+                    </columns>
+                  </TableView>
+               </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+    
+    <!-- Tab 3: Contents CRUD -->
+    <Tab text="Contents">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="20.0" text="Content ID:" />
+                  <TextField fx:id="txtContentId" layoutX="90.0" layoutY="16.0" prefHeight="25.0" prefWidth="80.0" />
+                  
+                  <Label layoutX="185.0" layoutY="20.0" text="Title:" />
+                  <TextField fx:id="txtContentTitle" layoutX="225.0" layoutY="16.0" prefHeight="25.0" prefWidth="120.0" />
+                  
+                  <Label layoutX="360.0" layoutY="20.0" text="Type:" />
+                  <TextField fx:id="txtContentType" layoutX="400.0" layoutY="16.0" prefHeight="25.0" prefWidth="100.0" promptText="MOVIE/SERIES" />
+                  
+                  <Label layoutX="15.0" layoutY="60.0" text="Genre ID:" />
+                  <TextField fx:id="txtContentGenre" layoutX="80.0" layoutY="56.0" prefHeight="25.0" prefWidth="90.0" />
+                  
+                  <Label layoutX="185.0" layoutY="60.0" text="Release Date:" />
+                  <TextField fx:id="txtContentDate" layoutX="265.0" layoutY="56.0" prefHeight="25.0" prefWidth="100.0" promptText="YYYY-MM-DD" />
+                  
+                  <Label layoutX="380.0" layoutY="60.0" text="Duration (m):" />
+                  <TextField fx:id="txtContentDuration" layoutX="460.0" layoutY="56.0" prefHeight="25.0" prefWidth="70.0" />
+                  
+                  <Button fx:id="btnAddContent" layoutX="565.0" layoutY="16.0" mnemonicParsing="false" onAction="#onAddContentClick" prefWidth="65.0" text="Add" />
+                  <Button fx:id="btnEditContent" layoutX="640.0" layoutY="16.0" mnemonicParsing="false" onAction="#onEditContentClick" prefWidth="65.0" text="Edit" />
+                  <Button fx:id="btnDeleteContent" layoutX="715.0" layoutY="16.0" mnemonicParsing="false" onAction="#onDeleteContentClick" prefWidth="70.0" text="Delete" />
+                  
+                  <TableView fx:id="tblContents" layoutX="15.0" layoutY="120.0" prefHeight="430.0" prefWidth="770.0">
+                    <columns>
+                      <TableColumn fx:id="colContentId" prefWidth="80.0" text="ID" />
+                      <TableColumn fx:id="colContentTitle" prefWidth="200.0" text="Title" />
+                        <TableColumn fx:id="colContentType" prefWidth="110.0" text="Type" />
+                        <TableColumn fx:id="colContentGenre" prefWidth="120.0" text="Genre" />
+                        <TableColumn fx:id="colContentDate" prefWidth="140.0" text="Release" />
+                        <TableColumn fx:id="colContentDuration" prefWidth="100.0" text="Duration" />
+                    </columns>
+                  </TableView>
+               </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+    
+    <!-- Tab 4: Genres CRUD -->
+    <Tab text="Genres">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="20.0" text="Genre ID:" />
+                  <TextField fx:id="txtGenreId" layoutX="80.0" layoutY="16.0" prefHeight="25.0" prefWidth="110.0" />
+                  
+                  <Label layoutX="210.0" layoutY="20.0" text="Name:" />
+                  <TextField fx:id="txtGenreName" layoutX="260.0" layoutY="16.0" prefHeight="25.0" prefWidth="130.0" />
+                  
+                  <Button fx:id="btnAddGenre" layoutX="565.0" layoutY="16.0" mnemonicParsing="false" onAction="#onAddGenreClick" prefWidth="65.0" text="Add" />
+                  <Button fx:id="btnEditGenre" layoutX="640.0" layoutY="16.0" mnemonicParsing="false" onAction="#onEditGenreClick" prefWidth="65.0" text="Edit" />
+                  <Button fx:id="btnDeleteGenre" layoutX="715.0" layoutY="16.0" mnemonicParsing="false" onAction="#onDeleteGenreClick" prefWidth="70.0" text="Delete" />
+                  
+                  <TableView fx:id="tblGenres" layoutX="15.0" layoutY="80.0" prefHeight="470.0" prefWidth="770.0">
+                    <columns>
+                      <TableColumn fx:id="colGenreId" prefWidth="250.0" text="Genre ID" />
+                      <TableColumn fx:id="colGenreName" prefWidth="500.0" text="Genre Name" />
+                    </columns>
+                  </TableView>
+               </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+    
+    <!-- Tab 5: Advanced Search Queries -->
+    <Tab text="Search">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="800.0">
+               <children>
+                  <!-- Left Side: Custom Advanced Search Forms -->
+                  
+                  <!-- 1. USER SEARCH -->
+                  <Label layoutX="15.0" layoutY="15.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="--- USER SEARCH ---" />
+                  
+                  <Label layoutX="15.0" layoutY="45.0" text="Name:" />
+                  <TextField fx:id="txtSearchUserName" layoutX="60.0" layoutY="41.0" prefHeight="25.0" prefWidth="110.0" promptText="Name substring" />
+                  
+                  <Label layoutX="185.0" layoutY="45.0" text="Region:" />
+                  <TextField fx:id="txtSearchUserRegion" layoutX="235.0" layoutY="41.0" prefHeight="25.0" prefWidth="110.0" promptText="Region code" />
+                  
+                  <Label layoutX="15.0" layoutY="80.0" text="Reg Date:" />
+                  <TextField fx:id="txtSearchUserStart" layoutX="80.0" layoutY="76.0" prefHeight="25.0" prefWidth="95.0" promptText="Start Date" />
+                  <Label layoutX="185.0" layoutY="80.0" text="to" />
+                  <TextField fx:id="txtSearchUserEnd" layoutX="210.0" layoutY="76.0" prefHeight="25.0" prefWidth="95.0" promptText="End Date" />
+                  
+                  <Button fx:id="btnSearchUsers" layoutX="15.0" layoutY="115.0" mnemonicParsing="false" onAction="#onSearchUsersClick" prefWidth="330.0" text="Search Users" />
+                  
+                  <!-- 2. ARTIST SEARCH -->
+                  <Label layoutX="15.0" layoutY="160.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="--- ARTIST SEARCH ---" />
+                  
+                  <Label layoutX="15.0" layoutY="190.0" text="Name:" />
+                  <TextField fx:id="txtSearchArtistName" layoutX="60.0" layoutY="186.0" prefHeight="25.0" prefWidth="110.0" promptText="Name substring" />
+                  
+                  <Label layoutX="185.0" layoutY="190.0" text="Nation:" />
+                  <TextField fx:id="txtSearchArtistNat" layoutX="235.0" layoutY="186.0" prefHeight="25.0" prefWidth="110.0" promptText="Nationality" />
+                  
+                  <Label layoutX="15.0" layoutY="225.0" text="Gender:" />
+                  <TextField fx:id="txtSearchArtistGender" layoutX="70.0" layoutY="221.0" prefHeight="25.0" prefWidth="90.0" promptText="Male/Female" />
+                  
+                  <Label layoutX="175.0" layoutY="225.0" text="Birth:" />
+                  <TextField fx:id="txtSearchArtistStart" layoutX="210.0" layoutY="221.0" prefHeight="25.0" prefWidth="60.0" promptText="Start" />
+                  <TextField fx:id="txtSearchArtistEnd" layoutX="280.0" layoutY="221.0" prefHeight="25.0" prefWidth="65.0" promptText="End" />
+                  
+                  <Button fx:id="btnSearchArtists" layoutX="15.0" layoutY="260.0" mnemonicParsing="false" onAction="#onSearchArtistsClick" prefWidth="330.0" text="Search Artists" />
+                  
+                  <!-- 3. CONTENT SEARCH -->
+                  <Label layoutX="15.0" layoutY="305.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" text="--- CONTENT SEARCH ---" />
+                  
+                  <Label layoutX="15.0" layoutY="335.0" text="Title:" />
+                  <TextField fx:id="txtSearchContentTitle" layoutX="55.0" layoutY="331.0" prefHeight="25.0" prefWidth="115.0" promptText="Title substring" />
+                  
+                  <Label layoutX="185.0" layoutY="335.0" text="Type:" />
+                  <TextField fx:id="txtSearchContentType" layoutX="225.0" layoutY="331.0" prefHeight="25.0" prefWidth="120.0" promptText="MOVIE/SERIES" />
+                  
+                  <Label layoutX="15.0" layoutY="370.0" text="Genre:" />
+                  <TextField fx:id="txtSearchContentGenre" layoutX="60.0" layoutY="366.0" prefHeight="25.0" prefWidth="90.0" promptText="Genre ID" />
+                  
+                  <Label layoutX="165.0" layoutY="370.0" text="Duration:" />
+                  <TextField fx:id="txtSearchContentMinDur" layoutX="225.0" layoutY="366.0" prefHeight="25.0" prefWidth="55.0" promptText="Min" />
+                  <TextField fx:id="txtSearchContentMaxDur" layoutX="290.0" layoutY="366.0" prefHeight="25.0" prefWidth="55.0" promptText="Max" />
+                  
+                  <Label layoutX="15.0" layoutY="405.0" text="Rel Date:" />
+                  <TextField fx:id="txtSearchContentStart" layoutX="80.0" layoutY="401.0" prefHeight="25.0" prefWidth="95.0" promptText="Start Date" />
+                  <Label layoutX="185.0" layoutY="405.0" text="to" />
+                  <TextField fx:id="txtSearchContentEnd" layoutX="210.0" layoutY="401.0" prefHeight="25.0" prefWidth="95.0" promptText="End Date" />
+                  
+                  <Button fx:id="btnSearchContents" layoutX="15.0" layoutY="440.0" mnemonicParsing="false" onAction="#onSearchContentsClick" prefWidth="330.0" text="Search Contents" />
+                  
+                  <!-- Right Side: Big search results text area -->
+                  <TextArea fx:id="txtSearchResults" editable="false" layoutX="400.0" layoutY="15.0" prefHeight="535.0" prefWidth="385.0" promptText="Search results will be printed here..." wrapText="true" style="-fx-font-family: 'Consolas'; -fx-font-size: 11px;" />
+               </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
