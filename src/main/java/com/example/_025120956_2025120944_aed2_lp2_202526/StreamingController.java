@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 
-public class HelloController {
+public class StreamingController {
 
     // Database and search engine instances
     private StreamingDatabase db = new StreamingDatabase();
