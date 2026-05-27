@@ -17,6 +17,7 @@ public class StreamingDatabase {
     private SeparateChainingHashST<String, Genre> genres;
     private SeparateChainingHashST<String, Content> contents;
     private SeparateChainingHashST<String, SET<Content>> contentsByGenre;
+    private StreamingGraph graph;
 
     public StreamingDatabase() {
         this.users = new SeparateChainingHashST<>();
@@ -24,6 +25,16 @@ public class StreamingDatabase {
         this.genres = new SeparateChainingHashST<>();
         this.contents = new SeparateChainingHashST<>();
         this.contentsByGenre = new SeparateChainingHashST<>();
+        this.graph = new StreamingGraph();
+    }
+
+    /**
+     * Gets the streaming graph instance.
+     * 
+     * @return the active graph
+     */
+    public StreamingGraph getGraph() {
+        return graph;
     }
 
     /**
@@ -95,6 +106,7 @@ public class StreamingDatabase {
             User userToDelete = users.get(id);
 
             users.delete(id);
+            graph.removeVertex(id);
         }
     }
 
@@ -147,6 +159,7 @@ public class StreamingDatabase {
             }
 
             contents.delete(id);
+            graph.removeVertex(id);
         }
     }
 
@@ -189,6 +202,7 @@ public class StreamingDatabase {
             }
 
             artists.delete(id);
+            graph.removeVertex(id);
         }
     }
 
