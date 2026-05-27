@@ -218,6 +218,8 @@ public class StreamingDatabase {
 
         if (content != null && artist != null) {
             content.addArtist(artist);
+            java.time.LocalDate relDate = content.getReleaseDate() != null ? content.getReleaseDate() : java.time.LocalDate.now();
+            graph.addEdge(artistId, contentId, 1.0, "PARTICIPATED_IN", relDate, true, "Cast Member");
         }
     }
 
