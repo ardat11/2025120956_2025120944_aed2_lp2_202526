@@ -323,4 +323,94 @@ public class FileManager {
             System.out.println("Error saving archive: " + e.getMessage());
         }
     }
+
+    // Method to save users to a text file
+    public static void saveUsers(StreamingDatabase db, String filepath) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+            pw.println("# ID;Name;Region;RegistrationDate");
+            for (User u : db.listAllUsers()) {
+                pw.println(u.getId() + ";" + u.getName() + ";" + u.getRegion() + ";" + u.getRegistrationDate());
+            }
+            pw.close();
+            System.out.println("Users saved to text file: " + filepath);
+        } catch (Exception e) {
+            System.out.println("Error saving users: " + e.getMessage());
+        }
+    }
+
+    // Method to save artists to a text file
+    public static void saveArtists(StreamingDatabase db, String filepath) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+            pw.println("# ID;Name;Nationality;Gender;BirthDate");
+            for (Artist a : db.listAllArtists()) {
+                pw.println(a.getId() + ";" + a.getName() + ";" + a.getNationality() + ";" + a.getGender() + ";" + a.getBirthDate());
+            }
+            pw.close();
+            System.out.println("Artists saved to text file: " + filepath);
+        } catch (Exception e) {
+            System.out.println("Error saving artists: " + e.getMessage());
+        }
+    }
+
+    // Method to save genres to a text file
+    public static void saveGenres(StreamingDatabase db, String filepath) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+            pw.println("# ID;Name");
+            for (Genre g : db.listAllGenres()) {
+                pw.println(g.getId() + ";" + g.getName());
+            }
+            pw.close();
+            System.out.println("Genres saved to text file: " + filepath);
+        } catch (Exception e) {
+            System.out.println("Error saving genres: " + e.getMessage());
+        }
+    }
+
+    // Method to save contents to a text file
+    public static void saveContents(StreamingDatabase db, String filepath) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+            pw.println("# ID;Name;Type;Genre;ReleaseDate;Duration;ArtistIDs");
+            for (Content c : db.listAllContents()) {
+                String castList = "";
+                if (c.getCast() != null) {
+                    for (Artist a : c.getCast()) {
+                        castList += a.getId() + ",";
+                    }
+                    if (castList.endsWith(",")) {
+                        castList = castList.substring(0, castList.length() - 1);
+                    }
+                }
+                String genreName = "";
+                if (c.getGenre() != null) {
+                    genreName = c.getGenre().getName();
+                }
+                pw.println(c.getId() + ";" + c.getName() + ";" + c.getType() + ";" + genreName + ";"
+                        + c.getReleaseDate() + ";" + c.getDurationMinutes() + ";" + castList);
+            }
+            pw.close();
+            System.out.println("Contents saved to text file: " + filepath);
+        } catch (Exception e) {
+            System.out.println("Error saving contents: " + e.getMessage());
+        }
+    }
+
+    // Method to save search results or any custom string list to a text file
+    public static void saveSearchResults(Iterable<String> results, String filepath) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+            pw.println("# SEARCH RESULTS");
+            for (String result : results) {
+                pw.println(result);
+            }
+            pw.close();
+            System.out.println("Search results saved to text file: " + filepath);
+        } catch (Exception e) {
+            System.out.println("Error saving search results: " + e.getMessage());
+        }
+    }
+}
 }
