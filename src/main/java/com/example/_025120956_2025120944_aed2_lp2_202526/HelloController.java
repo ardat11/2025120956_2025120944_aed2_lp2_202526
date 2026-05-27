@@ -119,6 +119,47 @@ public class HelloController {
         colGenreId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colGenreName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        // Row selection listener on tblUsers to auto-populate fields
+        tblUsers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtUserId.setText(newSelection.getId());
+                txtUserName.setText(newSelection.getName());
+                txtUserRegion.setText(newSelection.getRegion());
+                txtUserDate.setText(newSelection.getRegistrationDate() != null ? newSelection.getRegistrationDate().toString() : "");
+            }
+        });
+
+        // Row selection listener on tblArtists to auto-populate fields
+        tblArtists.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtArtistId.setText(newSelection.getId());
+                txtArtistName.setText(newSelection.getName());
+                txtArtistNat.setText(newSelection.getNationality());
+                txtArtistGender.setText(newSelection.getGender());
+                txtArtistBirth.setText(newSelection.getBirthDate() != null ? newSelection.getBirthDate().toString() : "");
+            }
+        });
+
+        // Row selection listener on tblContents to auto-populate fields
+        tblContents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtContentId.setText(newSelection.getId());
+                txtContentTitle.setText(newSelection.getName());
+                txtContentType.setText(newSelection.getType() != null ? newSelection.getType().name() : "");
+                txtContentGenre.setText(newSelection.getGenre() != null ? newSelection.getGenre().getId() : "");
+                txtContentDate.setText(newSelection.getReleaseDate() != null ? newSelection.getReleaseDate().toString() : "");
+                txtContentDuration.setText(String.valueOf(newSelection.getDurationMinutes()));
+            }
+        });
+
+        // Row selection listener on tblGenres to auto-populate fields
+        tblGenres.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                txtGenreId.setText(newSelection.getId());
+                txtGenreName.setText(newSelection.getName());
+            }
+        });
+
         // Load dummy starting data
         loadDummyData();
 
@@ -211,10 +252,20 @@ public class HelloController {
     @FXML
     public void onEditUserClick() {
         try {
-            String id = txtUserId.getText();
-            String name = txtUserName.getText();
-            String region = txtUserRegion.getText();
-            LocalDate date = LocalDate.parse(txtUserDate.getText());
+            String id = txtUserId.getText().trim();
+            if (id.isEmpty()) return;
+
+            String name = txtUserName.getText().trim();
+            if (name.isEmpty()) name = null;
+
+            String region = txtUserRegion.getText().trim();
+            if (region.isEmpty()) region = null;
+
+            LocalDate date = null;
+            String dateText = txtUserDate.getText().trim();
+            if (!dateText.isEmpty()) {
+                date = LocalDate.parse(dateText);
+            }
 
             db.editUser(id, name, region, date);
             showUsers();
@@ -260,11 +311,23 @@ public class HelloController {
     @FXML
     public void onEditArtistClick() {
         try {
-            String id = txtArtistId.getText();
-            String name = txtArtistName.getText();
-            String nat = txtArtistNat.getText();
-            String gender = txtArtistGender.getText();
-            LocalDate birth = LocalDate.parse(txtArtistBirth.getText());
+            String id = txtArtistId.getText().trim();
+            if (id.isEmpty()) return;
+
+            String name = txtArtistName.getText().trim();
+            if (name.isEmpty()) name = null;
+
+            String nat = txtArtistNat.getText().trim();
+            if (nat.isEmpty()) nat = null;
+
+            String gender = txtArtistGender.getText().trim();
+            if (gender.isEmpty()) gender = null;
+
+            LocalDate birth = null;
+            String birthText = txtArtistBirth.getText().trim();
+            if (!birthText.isEmpty()) {
+                birth = LocalDate.parse(birthText);
+            }
 
             db.editArtist(id, name, nat, gender, birth);
             showArtists();
@@ -293,12 +356,23 @@ public class HelloController {
     @FXML
     public void onAddContentClick() {
         try {
-            String id = txtContentId.getText();
-            String title = txtContentTitle.getText();
-            ContentType type = ContentType.valueOf(txtContentType.getText().toUpperCase());
-            Genre genre = db.getGenre(txtContentGenre.getText());
-            LocalDate date = LocalDate.parse(txtContentDate.getText());
-            int duration = Integer.parseInt(txtContentDuration.getText());
+            String id = txtContentId.getText().trim();
+            String title = txtContentTitle.getText().trim();
+            ContentType type = ContentType.valueOf(txtContentType.getText().trim().toUpperCase());
+            
+            String genreText = txtContentGenre.getText().trim();
+            Genre genre = db.getGenre(genreText);
+            if (genre == null) {
+                for (Genre g : db.listAllGenres()) {
+                    if (g.getName() != null && g.getName().equalsIgnoreCase(genreText)) {
+                        genre = g;
+                        break;
+                    }
+                }
+            }
+            
+            LocalDate date = LocalDate.parse(txtContentDate.getText().trim());
+            int duration = Integer.parseInt(txtContentDuration.getText().trim());
 
             Content content = new Content(id, title, type, genre, date, duration);
             db.insertContent(content);
@@ -311,12 +385,48 @@ public class HelloController {
     @FXML
     public void onEditContentClick() {
         try {
-            String id = txtContentId.getText();
-            String title = txtContentTitle.getText();
-            ContentType type = ContentType.valueOf(txtContentType.getText().toUpperCase());
-            Genre genre = db.getGenre(txtContentGenre.getText());
-            LocalDate date = LocalDate.parse(txtContentDate.getText());
-            int duration = Integer.parseInt(txtContentDuration.getText());
+            String id = txtContentId.getText().trim();
+            if (id.isEmpty()) return;
+
+            Content content = db.getContent(id);
+            if (content == null) return;
+
+            String title = txtContentTitle.getText().trim();
+            if (title.isEmpty()) title = null;
+
+            ContentType type = null;
+            String typeText = txtContentType.getText().trim();
+            if (!typeText.isEmpty()) {
+                type = ContentType.valueOf(typeText.toUpperCase());
+            }
+
+            Genre genre = null;
+            String genreText = txtContentGenre.getText().trim();
+            if (!genreText.isEmpty()) {
+                genre = db.getGenre(genreText);
+                if (genre == null) {
+                    for (Genre g : db.listAllGenres()) {
+                        if (g.getName() != null && g.getName().equalsIgnoreCase(genreText)) {
+                            genre = g;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                genre = content.getGenre();
+            }
+
+            LocalDate date = null;
+            String dateText = txtContentDate.getText().trim();
+            if (!dateText.isEmpty()) {
+                date = LocalDate.parse(dateText);
+            }
+
+            int duration = 0;
+            String durationText = txtContentDuration.getText().trim();
+            if (!durationText.isEmpty()) {
+                duration = Integer.parseInt(durationText);
+            }
 
             db.editContent(id, title, type, genre, date, duration);
             showContents();
@@ -359,8 +469,10 @@ public class HelloController {
     @FXML
     public void onEditGenreClick() {
         try {
-            String id = txtGenreId.getText();
-            String name = txtGenreName.getText();
+            String id = txtGenreId.getText().trim();
+            if (id.isEmpty()) return;
+            String name = txtGenreName.getText().trim();
+            if (name.isEmpty()) name = null;
 
             db.editGenre(id, name);
             showGenres();
