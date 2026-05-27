@@ -22,6 +22,12 @@ public class TestRunner {
             System.out.println("File tests failed: " + e.getMessage());
         }
 
+        try {
+            GraphTest.runGraphTests();
+        } catch (Exception e) {
+            System.out.println("Graph tests failed: " + e.getMessage());
+        }
+
         System.out.println("All system tests completed successfully.");
     }
 }
