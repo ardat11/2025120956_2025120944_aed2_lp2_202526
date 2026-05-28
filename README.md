@@ -36,7 +36,7 @@ This project integrates high-speed symbol tables (Linear Probing Hashing), balan
   * **Subgraphs:** Extraction of specific genre or rating subgraphs.
 
 ### 3. Symmetrical Double Persistence
-* **CSV Metin Yedekleri (R10):** Standard semicolon (`;`) delimited text loaders and writers with automated BOM character stripping (`\uFEFF`) and clean format parsers.
+* **CSV Flat-File Backups (R10):** Standard semicolon (`;`) delimited text loaders and writers with automated BOM character stripping (`\uFEFF`) and clean format parsers.
 * **Binary Snapshots (R11):** Native object stream serialization using `ObjectOutputStream` and `ObjectInputStream`.
 * **Referential Re-linking (Reference Duplication Fix):** During deserialization, the loader automatically resolves duplicate memory references and re-links content entities to the single official `Genre` and `Artist` instances in the database tables, guaranteeing **100% Referential Integrity**.
 
@@ -48,30 +48,30 @@ This project integrates high-speed symbol tables (Linear Probing Hashing), balan
 
 ## 🚀 Execution & Setup Guide
 
-Ensure your shell has its `JAVA_HOME` pointing to JDK 25.
+Ensure your shell has its `JAVA_HOME` pointing to JDK 25 (or set it manually in your shell, e.g., `$env:JAVA_HOME = "C:\path\to\jdk-25"`).
 
 ### 1. Compilation
 Clean build and compile the Maven project:
 ```powershell
-$env:JAVA_HOME = "C:\Users\ArdaT\.jdks\openjdk-25.0.2"; .\mvnw.cmd clean compile
+.\mvnw.cmd clean compile
 ```
 
 ### 2. Execute Master Test Runner
 Execute the pre-configured backend verification test suite (testing CRUD, serialization, and graphs):
 ```powershell
-$env:JAVA_HOME = "C:\Users\ArdaT\.jdks\openjdk-25.0.2"; .\mvnw.cmd compile exec:java "-Dexec.mainClass=testing.TestRunner"
+.\mvnw.cmd compile exec:java "-Dexec.mainClass=testing.TestRunner"
 ```
 
 ### 3. Generate Javadoc HTML Documentation
-Generate comprehensive API Javadoc documentation pages under the `target/site/apidocs` directory:
+Generate comprehensive API Javadoc documentation pages under the `target/reports/apidocs` directory:
 ```powershell
-$env:JAVA_HOME = "C:\Users\ArdaT\.jdks\openjdk-25.0.2"; .\mvnw.cmd javadoc:javadoc
+.\mvnw.cmd javadoc:javadoc
 ```
 
 ### 4. Launch the JavaFX Application
 You can run the JavaFX GUI directly via Maven:
 ```powershell
-$env:JAVA_HOME = "C:\Users\ArdaT\.jdks\openjdk-25.0.2"; .\mvnw.cmd compile javafx:run
+.\mvnw.cmd compile javafx:run
 ```
 *Alternatively, you can run the [Launcher.java](src/main/java/com/example/_025120956_2025120944_aed2_lp2_202526/Launcher.java) main method inside your IDE (e.g. IntelliJ IDEA) to bypass standard JavaFX module path runtime warnings.*
 
